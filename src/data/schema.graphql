@@ -1,0 +1,221 @@
+scalar Date
+
+# LOS ENUMS
+
+enum TipoUsuario {
+  user
+  admin
+  otros
+}
+
+enum TypeInstitution {
+  Clinica
+  Hospital
+  Sala
+  Consultorio
+}
+
+enum Profile {
+  Cirujano
+  Clinico
+  Laboratorio
+  Psicologo
+  Psiquiatra
+  Kinesiologo
+  Oftalmologo
+}
+
+# LOS TIPOS
+type Institution {
+  _id: ID
+  name: String
+  description: String
+  address: String
+  type: TypeInstitution
+  createdOn: Date
+  modifiedOn: Date
+}
+
+interface User {
+  _id: ID
+  email: String
+  firstName: String
+  lastName: String
+}
+
+type Patient implements User {
+   _id: ID
+  email: String
+  firstName: String
+  lastName: String
+  day: Int
+  month: Int
+  year: Int
+  os: String
+  country: String
+  city: String
+  personalAddress: String
+  phoneNumber: String
+  dni: String
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type Calendar {
+  _id: ID
+  description: String
+  day: [String]
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type RelationCalendar {
+  _id: ID
+  calendar: [Calendar]
+  institution: [Institution]
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type Professional implements User {
+   _id: ID
+  email: String
+  firstName: String
+  lastName: String
+  profile: Profile
+  matricula: String
+  phoneNumber: String
+  identifier: String
+  password: String
+  institution: [Institution]
+  calendar: [Calendar]
+  relationCalendar:[RelationCalendar]
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type Consultation {
+  _id: ID
+  professional: Professional
+  patient: Patient
+  diagnosis: String
+  extended: String
+  medications: [String]
+  indications: [String]
+  createdOn: Date
+  modifiedOn: Date
+}
+
+# LOS INPUTS
+input InputPatient {
+  identifier: String
+  email: String
+  firstName: String
+  lastName: String
+  day: Int
+  month: Int
+  year: Int
+  os: String
+  country: String
+  city: String
+  personalAddress: String
+  phoneNumber: String
+  dni: String
+}
+
+input InputProfessional {
+  identifier: String
+  email: String
+  firstName: String
+  lastName: String
+  profile: String
+  matricula: String
+  phoneNumber: String
+  password: String
+  institution: [String]
+  calendar: [String]
+  relationCalendar:[String]
+}
+
+input InputRelationCalendar {
+  calendar: [String]
+  institution: [String]
+}
+
+input InputCalendar {
+  description: String
+  day: [String]
+}
+
+input InputConsultation {
+  professional: String
+  patient: String
+  diagnosis: String
+  extended: String
+  medications: [String]
+  indications: [String]
+}
+
+input InputInstitution {
+  name: String
+  description: String
+  address: String
+  type: String
+}
+
+# LAS QUERYS
+type Query {
+  getCurrentUser(token: String):Professional
+  "Obtiene todos las profesional"
+  getProfessionals: [Professional]
+  "Obtiene todos una profesional"
+  getProfessional(id: ID): Professional
+  "Obtiene todos las pacientes"
+  getPatients: [Patient]
+  "Obtiene todos una paciente"
+  getPatient(id: ID): Patient
+   "Obtiene todos las Instituciones"
+  getInstitucions: [Institution]
+  "Obtiene todos una Institucion"
+  getInstitucion(id: ID): Institution
+   "Obtiene todos las calendar"
+  getCalendars: [Calendar]
+  "Obtiene todos una calendar"
+  getCalendar(id: ID): Calendar
+   "Obtiene todos las Consultation"
+  getConsultations: [Consultation]
+  "Obtiene todos una Consultation"
+  getConsultation(id: ID): Consultation
+  "Obtiene todos las Relaciones"
+  getRelationCalendar: [RelationCalendar]
+}
+
+# LAS MUTATIONS
+type Mutation {
+  "Authorization"
+  auth(identifier: String, password: String): String
+  "Crea profesional"
+  createProfessional(input: InputProfessional): Professional
+  "Edita profesional"
+  editProfessional(_id: ID, input: InputProfessional): Professional
+   "Crea Paciente"
+  createPatient(input: InputPatient): Patient
+  "Crea Relacion"
+  createRelationCalendar(professionalID: ID, calendarID: ID, institutionID: ID): RelationCalendar
+  "Edita Paciente"
+  editPatient(_id: ID, input: InputPatient): Patient
+   "Crea Institucion"
+  createInstitucion(input: InputInstitution): Institution
+  "Edita Institucion"
+  editInstitucion(_id: ID, input: InputInstitution): Institution
+   "Crea Calendar"
+  createCalendar(input: InputCalendar): Calendar
+  "Edita Calendar"
+  editCalendar(_id: ID, input: InputCalendar): Calendar
+  "Crea Institucion"
+  createConsultation(input: InputConsultation): Consultation
+  "Edita Institucion"
+  editConsultation(_id: ID, input: InputConsultation): Consultation
+
+
+}
