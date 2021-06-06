@@ -49,7 +49,7 @@ module.exports = {
             }
             return muscles
         },
-        getMusclesById: async (root, { id }) => {
+        getMuscleById: async (root, { id }) => {
             let db
             let muscle = []
     
@@ -58,7 +58,7 @@ module.exports = {
                 muscle = await db.collection('muscles').findOne({ _id: ObjectID(id) })
             } catch (error) {
             }
-            return muscles
+            return muscle
         },
         getAllExercises: async () => {
             let db
@@ -181,6 +181,83 @@ module.exports = {
             }
             return user
         },
+        createMuscle: async (root, { input }) => {
+            let db 
+            let muscle
+
+            const newMuscle = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                muscle = await db.collection('muscles').insertOne(newMuscle)
+                input._id = muscle.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return muscle
+        },
+        createExercise: async (root, { input }) => {
+            let db 
+            let exercise
+
+            const newExercise = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                exercise = await db.collection('exercises').insertOne(newExercise)
+                input._id = exercise.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return exercise
+        },
+        createSeries: async (root, { input }) => {
+            let db 
+            let serie
+
+            const newSerie = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                serie = await db.collection('series').insertOne(newSerie)
+                input._id = serie.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return serie
+        },
+        createRoutines: async (root, { input }) => {
+            let db 
+            let routine
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('routines').insertOne(newRoutines)
+                input._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+
     },
     ...types
 }

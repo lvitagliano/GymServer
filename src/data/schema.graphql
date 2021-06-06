@@ -12,6 +12,7 @@ enum Gender {
   Femenino
 }
 
+# LOS TYPES
 type User {
   _id: ID
   email: String
@@ -25,8 +26,7 @@ type User {
   modifiedOn: Date
 }
 
-# LOS TYPES
-type Muscles {
+type Muscle {
   _id: ID
   description: String
   createdOn: Date
@@ -36,17 +36,18 @@ type Muscles {
 type Exercise {
   _id: ID
   description: String
-  musclesInvolved: [Muscles]
+  musclesInvolved: [Muscle]
   image: String
   createdOn: Date
   modifiedOn: Date
 }
 
 type Serie {
-  weight: String
+  _id: ID
+  weight: Float 
   exercise: Exercise
   repeats: Int
-  pause: String
+  pause: Float
 }
 
 type Routine {
@@ -73,40 +74,39 @@ input InputUser {
   profile: String
 }
 
-input InputMuscles {
+input InputMuscle {
   description: String
 }
 
 input InputExercise {
   description: String
-  musclesInvolved: [InputMuscles]
+  musclesInvolved: [String]
   image: String
 }
 
 input InputSerie {
-  muscle: InputMuscles
-  weight: String
-  exercise: InputExercise
+  weight: Float 
+  exercise: String
   repeats: Int
-  pause: String
+  pause: Float
 }
 
 input InputRoutine {
   description: String
-  student: InputUser
-  teacher: InputUser
+  student: String
+  teacher: String
   series: Int
-  serie: [InputSerie]
-  start: Date
-  finish: Date
+  serie: [String]
+  start: String
+  finish: String
 }
 
 # LAS QUERYS
 type Query {
   getAllUsers: [User]
   getUserById(id: ID): User
-  getAllMuscles: [Muscles]
-  getMusclesById(id: ID): Muscles
+  getAllMuscles: [Muscle]
+  getMuscleById(id: ID): Muscle
   getAllExercises: [Exercise]
   getExerciseById(id: ID): Exercise
   getExerciseByMuscle(muscleID: ID): [Exercise]
@@ -121,8 +121,10 @@ type Query {
 
 # LAS MUTATIONS
 type Mutation {
-
-"Crea Paciente"
 createUser(input: InputUser): User
+createMuscle(input: InputMuscle): Muscle
+createExercise(input: InputExercise): Exercise
+createSeries(input: InputSerie): Serie
+createRoutines(input: InputRoutine): Routine
 
 }
