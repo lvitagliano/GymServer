@@ -7,7 +7,7 @@ const { makeExecutableSchema } = require('graphql-tools');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 const resolvers = require('./data/resolvers')
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 
 //INICIALIZATIONS
