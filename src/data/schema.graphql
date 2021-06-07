@@ -36,7 +36,7 @@ type Muscle {
 type Exercise {
   _id: ID
   description: String
-  musclesInvolved: [Muscle]
+  muscle: [Muscle]
   image: String
   createdOn: Date
   modifiedOn: Date
@@ -57,8 +57,8 @@ type Routine {
   teacher: User
   series: Int
   serie: [Serie]
-  start: Date
-  finish: Date
+  start: String
+  finish: String
   createdOn: Date
   modifiedOn: Date
 }
@@ -80,7 +80,7 @@ input InputMuscle {
 
 input InputExercise {
   description: String
-  musclesInvolved: [String]
+  muscle: [String]
   image: String
 }
 
@@ -109,7 +109,7 @@ type Query {
   getMuscleById(id: ID): Muscle
   getAllExercises: [Exercise]
   getExerciseById(id: ID): Exercise
-  getExerciseByMuscle(muscleID: ID): [Exercise]
+  getExerciseByMuscle(muscle: ID): [Exercise]
   getAllSeries: [Serie]
   getSerieById(id: ID): Serie
   getAllRoutines: [Routine]
@@ -126,5 +126,11 @@ createMuscle(input: InputMuscle): Muscle
 createExercise(input: InputExercise): Exercise
 createSeries(input: InputSerie): Serie
 createRoutines(input: InputRoutine): Routine
+
+updateUser(_id: ID, input: InputUser): User
+updateMuscle(_id: ID, input: InputMuscle): Muscle
+updateExercise(_id: ID, input: InputExercise): Exercise
+updateSeries(_id: ID, input: InputSerie): Serie
+updateRoutines(_id: ID, input: InputRoutine): Routine
 
 }

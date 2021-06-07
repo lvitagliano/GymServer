@@ -258,6 +258,68 @@ module.exports = {
             return routine
         },
 
+
+        updateUser: async (root, { _id, input }) => {
+            let db 
+            let userInput
+            try {
+                db = await connectDB()
+                await db.collection('users').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                userInput = await db.collection('users').findOne({ _id: ObjectID(_id) })
+            } catch (error) {
+                console.error(error)
+            }
+            return userInput
+        },
+        updateMuscle: async (root, { _id, input }) => {
+            let db 
+            let musclesInput
+            try {
+                db = await connectDB()
+                await db.collection('muscles').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                musclesInput = await db.collection('muscles').findOne({ _id: ObjectID(_id) })
+            } catch (error) {
+                console.error(error)
+            }
+            return musclesInput
+        },
+        updateExercise: async (root, { _id, input }) => {
+            let db 
+            let exercisesInput
+            try {
+                db = await connectDB()
+                await db.collection('exercises').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                exercisesInput = await db.collection('exercises').findOne({ _id: ObjectID(_id) })
+            } catch (error) {
+                console.error(error)
+            }
+            return exercisesInput
+        },
+        updateSeries: async (root, { _id, input }) => {
+            let db 
+            let seriesInput
+            try {
+                db = await connectDB()
+                await db.collection('series').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                seriesInput = await db.collection('series').findOne({ _id: ObjectID(_id) })
+            } catch (error) {
+                console.error(error)
+            }
+            return seriesInput
+        },
+        updateRoutines: async (root, { _id, input }) => {
+            let db 
+            let rutinesInput
+            try {
+                db = await connectDB()
+                await db.collection('rutines').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                rutinesInput = await db.collection('rutines').findOne({ _id: ObjectID(_id) })
+            } catch (error) {
+                console.error(error)
+            }
+            return rutinesInput
+        },
+
     },
     ...types
 }
