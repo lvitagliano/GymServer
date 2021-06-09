@@ -19,7 +19,7 @@ type User {
   firstName: String
   lastName: String
   phone: String
-  age: Int
+  age: String
   gender: Gender
   profile: Profile
   createdOn: Date
@@ -44,10 +44,10 @@ type Exercise {
 
 type Serie {
   _id: ID
-  weight: Float 
+  weight: String 
   exercise: Exercise
   repeats: Int
-  pause: Float
+  pause: String
 }
 
 type Routine {
@@ -55,7 +55,7 @@ type Routine {
   description: String
   student: User
   teacher: User
-  series: Int
+  series: String
   serie: [Serie]
   start: String
   finish: String
@@ -69,7 +69,7 @@ input InputUser {
   firstName: String
   lastName: String
   phone: String
-  age: Int
+  age: String
   gender: String
   profile: String
 }
@@ -85,10 +85,10 @@ input InputExercise {
 }
 
 input InputSerie {
-  weight: Float 
+  weight: String 
   exercise: String
-  repeats: Int
-  pause: Float
+  repeats: String
+  pause: String
 }
 
 input InputRoutine {
