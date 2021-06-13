@@ -320,6 +320,62 @@ module.exports = {
             return rutinesInput
         },
 
+        deleteUser: async (root, { _id }) => {
+            let db 
+            let user
+            try {
+                db = await connectDB()
+                user = await db.collection('users').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteMuscle: async (root, { _id }) => {
+            let db 
+            let musclesInput
+            try {
+                db = await connectDB()
+                musclesInput = await db.collection('muscles').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteExercise: async (root, { _id }) => {
+            let db 
+            let Exercise
+            try {
+                db = await connectDB()
+                Exercise = await db.collection('exercises').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteSeries: async (root, { _id }) => {
+            let db 
+            let series
+            try {
+                db = await connectDB()
+                series = await db.collection('series').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteRutines: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('rutines').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+
     },
     ...types
 }

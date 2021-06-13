@@ -133,4 +133,10 @@ updateExercise(_id: ID, input: InputExercise): Exercise
 updateSeries(_id: ID, input: InputSerie): Serie
 updateRoutines(_id: ID, input: InputRoutine): Routine
 
+deleteUser(_id: ID): String
+deleteMuscle(_id: ID): String
+deleteExercise(_id: ID): String
+deleteSeries(_id: ID): String
+deleteRutines(_id: ID): String
+
 }
