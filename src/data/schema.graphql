@@ -35,6 +35,7 @@ type Muscle {
 
 type Exercise {
   _id: ID
+  name: String
   description: String
   muscle: [Muscle]
   image: String
@@ -79,6 +80,7 @@ input InputMuscle {
 }
 
 input InputExercise {
+  name: String
   description: String
   muscle: [String]
   image: String
