@@ -29,6 +29,7 @@ type User {
 type Muscle {
   _id: ID
   description: String
+  image: String
   createdOn: Date
   modifiedOn: Date
 }
@@ -76,6 +77,7 @@ input InputUser {
 }
 
 input InputMuscle {
+  image: String
   description: String
 }
 
