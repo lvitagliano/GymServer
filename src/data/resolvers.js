@@ -82,13 +82,13 @@ module.exports = {
             }
             return exercise
         },
-        getExerciseByMuscle: async (root, {muscleID}) => {
+        getExerciseByMuscle: async (root, { muscle }) => {
             let db
             let exercises = []
-    
+            console.log('muscleID',muscle)
             try {
                 db = await connectDB()
-                exercises = await db.collection('exercises').find({muscle: muscleID}).toArray()
+                exercises = await db.collection('exercises').find({muscle: muscle}).toArray()
             } catch (error) {
             }
             return exercises
