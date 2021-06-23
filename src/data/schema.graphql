@@ -19,9 +19,11 @@ type User {
   firstName: String
   lastName: String
   phone: String
-  age: String
+  nac: String
   gender: Gender
   profile: Profile
+  weightStart: Float
+  weightActual: Float
   createdOn: Date
   modifiedOn: Date
 }
@@ -46,10 +48,12 @@ type Exercise {
 
 type Serie {
   _id: ID
-  weight: String 
+  weight: Float 
   exercise: Exercise
   repeats: Int
-  pause: String
+  pause: Int
+  numberSerie: Int
+  numberDay: Int
 }
 
 type Routine {
@@ -57,11 +61,12 @@ type Routine {
   description: String
   student: User
   teacher: User
-  series: String
+  series: Int
   serie: [Serie]
   start: String
   finish: String
   period: String
+  days: Int
   createdOn: Date
   modifiedOn: Date
 }
@@ -72,9 +77,11 @@ input InputUser {
   firstName: String
   lastName: String
   phone: String
-  age: String
+  nac: String
   gender: String
   profile: String
+  weightStart: Float
+  weightActual: Float
 }
 
 input InputMuscle {
@@ -90,10 +97,12 @@ input InputExercise {
 }
 
 input InputSerie {
-  weight: String 
+  weight: Float 
   exercise: String
-  repeats: String
-  pause: String
+  repeats: Int
+  pause: Int
+  numberSerie: Int
+  numberDay: Int
 }
 
 input InputRoutine {
@@ -105,7 +114,7 @@ input InputRoutine {
   start: String
   finish: String
   period: String
-
+  days: Int
 }
 
 # LAS QUERYS
