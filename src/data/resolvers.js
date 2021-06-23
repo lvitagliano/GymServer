@@ -88,7 +88,7 @@ module.exports = {
     
             try {
                 db = await connectDB()
-                exercises = await db.collection('exercises').find({musclesInvolved: muscleID}).toArray()
+                exercises = await db.collection('exercises').find({muscle: muscleID}).toArray()
             } catch (error) {
             }
             return exercises
