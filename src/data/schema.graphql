@@ -61,6 +61,7 @@ type Routine {
   serie: [Serie]
   start: String
   finish: String
+  period: String
   createdOn: Date
   modifiedOn: Date
 }
@@ -103,6 +104,8 @@ input InputRoutine {
   serie: [String]
   start: String
   finish: String
+  period: String
+
 }
 
 # LAS QUERYS
