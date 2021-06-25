@@ -82,6 +82,7 @@ input InputUser {
   profile: String
   weightStart: Float
   weightActual: Float
+  
 }
 
 input InputMuscle {
