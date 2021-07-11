@@ -1,3 +1,6 @@
+
+export const typeDefs = `
+
 scalar Date
 
 # LOS ENUMS
@@ -105,6 +108,7 @@ input InputSerie {
   pause: Int
   numberSerie: Int
   numberDay: Int
+  break: Int
 }
 
 input InputRoutine {
@@ -158,3 +162,4 @@ deleteSeries(_id: ID): String
 deleteRutines(_id: ID): String
 
 }
+`

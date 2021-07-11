@@ -12,7 +12,7 @@ const newToken = (userLogin, secret, expiresIn) => {
     return token
 }
 
-module.exports = {
+export const resolvers = {
     Date: GraphQLDateTime,
 
     Query: {

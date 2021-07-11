@@ -1,36 +1,31 @@
 const express = require('express');
-const morgan  = require('morgan');
-const cors  = require('cors');
-const { graphqlHTTP } = require('express-graphql');
-require('dotenv').config();
+const bodyParser = require('body-parser');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
-const { readFileSync } = require('fs');
-const { join } = require('path');
-const resolvers = require('./data/resolvers')
+const {resolvers} = require('./data/resolvers')
+const {typeDefs} = require('./data/schema.js')
+require('dotenv').config();
+
 const PORT = process.env.PORT;
 
 
 //INICIALIZATIONS
 const app = express();
-app.use(morgan('dev'));
 app.set('port', PORT);
-const isDev = process.env.NODE_ENV !== 'production'
 
-const typeDefs = readFileSync(join(__dirname, 'data', 'schema.graphql'), 'utf-8')
-const schema = makeExecutableSchema({typeDefs, resolvers});
+const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers,
+  });
 
-app.use(cors())
 
-//routes
-app.use(
-    '/api',
-    graphqlHTTP({
-        schema: schema,
-        rootValue: resolvers,
-        graphiql: true,
-    }),
-  );
+// The GraphQL endpoint
+app.use('/graphiql', bodyParser.json(), graphqlExpress({ schema }));
 
-app.listen(app.get('port'), () => {
-    console.log(`Running API server at http://localhost:${PORT}/api`);
-})
+// GraphiQL, a visual editor for queries
+app.use('/graphql', graphiqlExpress({ endpointURL: '/graphiql' }));
+
+// Start the server
+app.listen(3000, () => {
+    console.log(`Running API server at http://localhost:${PORT}/graphql`);
+});
