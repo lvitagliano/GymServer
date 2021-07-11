@@ -52,6 +52,7 @@ type Serie {
   exercise: Exercise
   repeats: Int
   pause: Int
+  break: Int
   numberSerie: Int
   numberDay: Int
 }

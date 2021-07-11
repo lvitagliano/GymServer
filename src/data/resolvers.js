@@ -175,11 +175,12 @@ module.exports = {
             try {
                 db = await connectDB()
                 user = await db.collection('users').insertOne(newUser)
+               
                 input._id = user.insertedId
             } catch (error) {
                 console.error(error)
             }
-            return user
+            return input
         },
         createMuscle: async (root, { input }) => {
             let db 
@@ -198,7 +199,7 @@ module.exports = {
             } catch (error) {
                 console.error(error)
             }
-            return muscle
+            return input
         },
         createExercise: async (root, { input }) => {
             let db 
@@ -217,7 +218,7 @@ module.exports = {
             } catch (error) {
                 console.error(error)
             }
-            return exercise
+            return input
         },
         createSeries: async (root, { input }) => {
             let db 
@@ -236,7 +237,7 @@ module.exports = {
             } catch (error) {
                 console.error(error)
             }
-            return serie
+            return input
         },
         createRoutines: async (root, { input }) => {
             let db 
@@ -255,7 +256,7 @@ module.exports = {
             } catch (error) {
                 console.error(error)
             }
-            return routine
+            return input
         },
 
 
