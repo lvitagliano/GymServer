@@ -242,10 +242,10 @@ module.exports = {
         createRoutines: async (root, { input }) => {
             let db 
             let routine
+            let rutina = input
 
             const newRoutines = ({
                 ...input,
-                _id: '',
                 createdOn: new Date(),
                 modifiedOn: new Date()
             })
@@ -253,12 +253,11 @@ module.exports = {
             try {
                 db = await connectDB()
                 routine = await db.collection('routines').insertOne(newRoutines)
-                input._id = routine.insertedId
+                rutina._id = routine.insertedId
             } catch (error) {
                 console.error(error)
             }
-            console.log('rutine',input)
-            return input
+            return rutina
         },
 
 
