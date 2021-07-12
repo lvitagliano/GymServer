@@ -256,6 +256,7 @@ module.exports = {
             } catch (error) {
                 console.error(error)
             }
+            console.log('rutine',input)
             return input
         },
 
