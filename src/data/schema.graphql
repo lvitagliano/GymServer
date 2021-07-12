@@ -61,7 +61,7 @@ type Serie {
 type Routine {
   _id: ID
   description: String
-  student: User
+  student: [User]
   teacher: User
   series: Int
   serie: [Serie]
@@ -112,7 +112,7 @@ input InputSerie {
 
 input InputRoutine {
   description: String
-  student: String
+  student: [String]
   teacher: String
   series: Int
   serie: [String]
