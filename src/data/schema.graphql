@@ -55,6 +55,7 @@ type Serie {
   break: Int
   numberSerie: Int
   numberDay: Int
+  rutine: ID
 }
 
 type Routine {
@@ -106,6 +107,7 @@ input InputSerie {
   numberSerie: Int
   numberDay: Int
   break: Int
+  rutine: String
 }
 
 input InputRoutine {
