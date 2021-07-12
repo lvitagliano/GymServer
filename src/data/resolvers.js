@@ -245,6 +245,7 @@ module.exports = {
 
             const newRoutines = ({
                 ...input,
+                _id: '',
                 createdOn: new Date(),
                 modifiedOn: new Date()
             })
