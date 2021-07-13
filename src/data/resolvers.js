@@ -85,7 +85,6 @@ module.exports = {
         getExerciseByMuscle: async (root, { muscle }) => {
             let db
             let exercises = []
-            console.log('muscleID',muscle)
             try {
                 db = await connectDB()
                 exercises = await db.collection('exercises').find({muscle: muscle}).toArray()
@@ -111,6 +110,17 @@ module.exports = {
             try {
                 db = await connectDB()
                 serie = await db.collection('series').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return serie
+        },
+        getSerieByRutine: async (root, { rutine }) => {
+            let db
+            let serie = []
+    
+            try {
+                db = await connectDB()
+                serie = await db.collection('series').find({ rutine: rutine }).toArray()
             } catch (error) {
             }
             return serie

@@ -132,6 +132,7 @@ type Query {
   getExerciseById(id: ID): Exercise
   getExerciseByMuscle(muscle: ID): [Exercise]
   getAllSeries: [Serie]
+  getSerieByRutine(rutine: ID): [Serie]
   getSerieById(id: ID): Serie
   getAllRoutines: [Routine]
   getRoutineById(id: ID): Routine
