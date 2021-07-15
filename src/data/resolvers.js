@@ -153,7 +153,7 @@ module.exports = {
     
             try {
                 db = await connectDB()
-                routines = await db.collection('routines').find({student: studentId}).toArray()
+                routines = await db.collection('routines').find({ student: {$in: studentId}}).toArray()
             } catch (error) {
             }
             return routines
@@ -320,16 +320,21 @@ module.exports = {
             return seriesInput
         },
         updateRoutines: async (root, { _id, input }) => {
+            console.log('_id',_id)
+            console.log('input',input)
             let db 
-            let rutinesInput
+            let routine
             try {
                 db = await connectDB()
-                await db.collection('rutines').updateOne({ _id: ObjectID(_id)},{ $set: input })
-                rutinesInput = await db.collection('rutines').findOne({ _id: ObjectID(_id) })
+                await db.collection('routines').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('routines').findOne({ _id: ObjectID(_id) })
+
+                console.log('rutinesInput',routine)
+
             } catch (error) {
                 console.error(error)
             }
-            return rutinesInput
+            return routine
         },
 
         deleteUser: async (root, { _id }) => {
