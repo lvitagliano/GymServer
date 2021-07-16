@@ -49,14 +49,20 @@ module.exports = {
 
     Routine: {
         student: async ({ student }) => {
+           
             let db
             let studentData
             let ids
 
             try {
                 db = await connectDB()
-                studentData = await db.collection('users').findOne({ _id: ObjectID(student) })
-
+                ids = student ? student.map(id => ObjectID(id)) : []
+                
+                studentData = ids.length > 0 
+                ? await  db.collection('users').find(
+                    { _id: { $in: ids } }
+                ).toArray()
+                : []
             } catch (error) {
                 console.error(error)
             }
