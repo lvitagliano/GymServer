@@ -124,6 +124,7 @@ input InputRoutine {
 
 # LAS QUERYS
 type Query {
+  login(email: String): User
   getAllUsers: [User]
   getUserById(id: ID): User
   getUserByProfile(profile: String): [User]

@@ -16,6 +16,17 @@ module.exports = {
     Date: GraphQLDateTime,
 
     Query: {
+        login: async (root, { email }) => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('users').findOne({ email: email })
+            } catch (error) {
+            }
+            return users
+        },
         getAllUsers: async () => {
             let db
             let users = []
