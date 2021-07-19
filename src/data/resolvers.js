@@ -27,6 +27,18 @@ module.exports = {
             }
             return users
         },
+        getUserByProfile: async (root, { profile }) => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('users').find({profile: profile}).toArray()
+            } catch (error) {
+            }
+            return users
+        },
+
         getUserById: async (root, { id }) => {
             let db
             let user = []

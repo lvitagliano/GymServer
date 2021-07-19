@@ -126,6 +126,7 @@ input InputRoutine {
 type Query {
   getAllUsers: [User]
   getUserById(id: ID): User
+  getUserByProfile(profile: String): [User]
   getAllMuscles: [Muscle]
   getMuscleById(id: ID): Muscle
   getAllExercises: [Exercise]
