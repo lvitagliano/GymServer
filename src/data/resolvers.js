@@ -16,6 +16,15 @@ module.exports = {
     Date: GraphQLDateTime,
 
     Query: {
+        getCurrentUser: (root, { token }) =>{
+            if (!token) {
+                return null
+            }
+            const currentUser = jwt.verify(token, process.env.SECRET)
+
+            return currentUser
+        },
+
         login: async (root, { email }) => {
             let db
             let users = []
@@ -195,9 +204,49 @@ module.exports = {
 
     },
     Mutation: {
+        auth: async (root,{email,password}) =>{
+            let db
+            let users = null
+            let userToLogin = []
+    
+                
+            try {
+                db = await connectDB()
+                users = await db.collection('users').findOne({ email: email })
+            } catch (error) {
+            }
+
+            if (!users) {
+                throw new Error('El usuario ingresado no existe o es incorrecto.');
+            } else {
+                userToLogin = {
+                    _id: users._id,
+                    email: users.email,
+                    firstName: users.firstName,
+                    lastName: users.lastName,
+                    phone: users.phone,
+                    nac: users.nac,
+                    gender: users.gender,
+                    profile: users.profile,
+                    weightStart: users.weightStart,
+                    weightActual: users.weightActual,
+                }
+            }
+            const pass= await bcrypt.compare(password, users.password)
+            if (!pass) {
+                throw new Error('La contraseña ingresada es incorrecta.');
+            }
+
+            return newToken(userToLogin, process.env.SECRET, '1hr')
+
+        },
+
         createUser: async (root, { input }) => {
             let db 
             let user
+            const {password} = input
+            const salt = await bcrypt.genSalt(10)
+            input.password= await bcrypt.hash(password,salt)
 
             const newUser = ({
                 ...input,
@@ -208,7 +257,6 @@ module.exports = {
             try {
                 db = await connectDB()
                 user = await db.collection('users').insertOne(newUser)
-               
                 input._id = user.insertedId
             } catch (error) {
                 console.error(error)

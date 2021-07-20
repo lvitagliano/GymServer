@@ -24,6 +24,7 @@ type User {
   profile: Profile
   weightStart: Float
   weightActual: Float
+  password: String
   createdOn: Date
   modifiedOn: Date
 }
@@ -84,6 +85,7 @@ input InputUser {
   profile: String
   weightStart: Float
   weightActual: Float
+  password: String
   
 }
 
@@ -124,6 +126,7 @@ input InputRoutine {
 
 # LAS QUERYS
 type Query {
+  getCurrentUser(token: String):User
   login(email: String): User
   getAllUsers: [User]
   getUserById(id: ID): User
@@ -145,6 +148,7 @@ type Query {
 
 # LAS MUTATIONS
 type Mutation {
+auth(email: String, password: String): String
 createUser(input: InputUser): User
 createMuscle(input: InputMuscle): Muscle
 createExercise(input: InputExercise): Exercise
