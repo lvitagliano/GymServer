@@ -185,8 +185,9 @@ module.exports = {
     
             try {
                 db = await connectDB()
-                routines = await db.collection('routines').find({ student: {$in: studentId}}).toArray()
+                routines = await db.collection('routines').find({ student: studentId}).toArray()
             } catch (error) {
+                console.log('error',error)
             }
             return routines
         },
@@ -237,7 +238,7 @@ module.exports = {
                 throw new Error('La contraseña ingresada es incorrecta.');
             }
 
-            return newToken(userToLogin, process.env.SECRET, '1hr')
+            return newToken(userToLogin, process.env.SECRET, '24hr')
 
         },
 
