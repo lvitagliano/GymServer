@@ -12,6 +12,7 @@ enum Gender {
   Femenino
 }
 
+
 # LOS TYPES
 type User {
   _id: ID
@@ -57,6 +58,7 @@ type Serie {
   numberSerie: Int
   numberDay: Int
   rutine: ID
+  timer: Int
 }
 
 type Routine {
@@ -70,6 +72,34 @@ type Routine {
   finish: String
   period: String
   days: Int
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type SeriesForDay {
+  _id: ID
+  serie: Serie
+  dayForRutine: DayForRutine
+  doIt: Int
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type DayForRutine {
+  _id: ID
+  numberDay: Int
+  rutineDo: RutineDo
+  serieforday: [SeriesForDay]
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type RutineDo {
+  _id: ID
+  rutine: Routine
+  teacher: User
+  student: User
+  rutineDay: [DayForRutine]
   createdOn: Date
   modifiedOn: Date
 }
@@ -110,6 +140,7 @@ input InputSerie {
   numberDay: Int
   break: Int
   rutine: String
+  timer: Int
 }
 
 input InputRoutine {
@@ -124,6 +155,29 @@ input InputRoutine {
   days: Int
 }
 
+input InputSeriesForDay {
+  serie: String
+  doIt: Int
+  dayForRutine: String
+}
+
+input InputDayForRutine {
+  numberDay: Int
+  serieforday: [String]
+  rutineDo: String
+  createdOn: Date
+  modifiedOn: Date
+}
+
+input InputRutineDo {
+  rutine: String
+  teacher: String
+  student: String
+  rutineDay: [String]
+}
+
+
+
 # LAS QUERYS
 type Query {
   getCurrentUser(token: String):User
@@ -131,40 +185,62 @@ type Query {
   getAllUsers: [User]
   getUserById(id: ID): User
   getUserByProfile(profile: String): [User]
+
   getAllMuscles: [Muscle]
   getMuscleById(id: ID): Muscle
+
   getAllExercises: [Exercise]
   getExerciseById(id: ID): Exercise
   getExerciseByMuscle(muscle: ID): [Exercise]
+
   getAllSeries: [Serie]
   getSerieByRutine(rutine: ID): [Serie]
   getSerieById(id: ID): Serie
+
   getAllRoutines: [Routine]
   getRoutineById(id: ID): Routine
   getRoutineByStudent(studentId: ID): [Routine]
   getRoutineByTeacher(teacherId: ID): [Routine]
 
+  getAllRoutinesDo: [RutineDo]
+  getRoutineDoById(id: ID): RutineDo
+  getRoutineDoByTeacher(teacherId: ID): [RutineDo]
+  getRoutineDoByStudent(studentId: ID): [RutineDo]
+
+  getAllDayForRutine(rutineDo: ID): [DayForRutine]
+  getDayForRutineById(id: ID): DayForRutine
+  getAllSeriesForDay(dayForRutine: ID): [SeriesForDay]
+  getSeriesForDayById(id: ID): SeriesForDay
 }
 
 # LAS MUTATIONS
 type Mutation {
-auth(email: String, password: String): String
-createUser(input: InputUser): User
-createMuscle(input: InputMuscle): Muscle
-createExercise(input: InputExercise): Exercise
-createSeries(input: InputSerie): Serie
-createRoutines(input: InputRoutine): Routine
+  auth(email: String, password: String): String
+  createUser(input: InputUser): User
+  createMuscle(input: InputMuscle): Muscle
+  createExercise(input: InputExercise): Exercise
+  createSeries(input: InputSerie): Serie
+  createRoutines(input: InputRoutine): Routine
+  createRutineDoIt(input: InputRutineDo): RutineDo
+  createDayForRutine(input: InputDayForRutine): DayForRutine
+  createSeriesForDay(input: InputSeriesForDay): SeriesForDay
 
-updateUser(_id: ID, input: InputUser): User
-updateMuscle(_id: ID, input: InputMuscle): Muscle
-updateExercise(_id: ID, input: InputExercise): Exercise
-updateSeries(_id: ID, input: InputSerie): Serie
-updateRoutines(_id: ID, input: InputRoutine): Routine
+  updateUser(_id: ID, input: InputUser): User
+  updateMuscle(_id: ID, input: InputMuscle): Muscle
+  updateExercise(_id: ID, input: InputExercise): Exercise
+  updateSeries(_id: ID, input: InputSerie): Serie
+  updateRoutines(_id: ID, input: InputRoutine): Routine
+  updateRoutinesDo(_id: ID, input: InputRutineDo): RutineDo
+  updateDayForRoutines(_id: ID, input: InputDayForRutine): DayForRutine
+  updateSeriesForDay(_id: ID, input: InputSeriesForDay): SeriesForDay
 
-deleteUser(_id: ID): String
-deleteMuscle(_id: ID): String
-deleteExercise(_id: ID): String
-deleteSeries(_id: ID): String
-deleteRutines(_id: ID): String
+  deleteUser(_id: ID): String
+  deleteMuscle(_id: ID): String
+  deleteExercise(_id: ID): String
+  deleteSeries(_id: ID): String
+  deleteRutines(_id: ID): String
+  deleteRutinesDo(_id: ID): String
+  deleteDayForRoutines(_id: ID): String
+  deleteSeriesForDay(_id: ID): String
 
 }

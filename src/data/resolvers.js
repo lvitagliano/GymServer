@@ -24,7 +24,6 @@ module.exports = {
 
             return currentUser
         },
-
         login: async (root, { email }) => {
             let db
             let users = []
@@ -58,7 +57,6 @@ module.exports = {
             }
             return users
         },
-
         getUserById: async (root, { id }) => {
             let db
             let user = []
@@ -202,7 +200,94 @@ module.exports = {
             }
             return routines
         },
-
+        getAllRoutinesDo: async () => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('routinesdo').find().toArray()
+            } catch (error) {
+            }
+            return routines
+        },
+        getRoutineDoById: async (root, { id }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('routinesdo').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return routine
+        },
+        getRoutineDoByTeacher: async (root, { teacherId }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('routinesdo').find({teacher: teacherId }).toArray()
+            } catch (error) {
+            }
+            return routine
+        },
+        getRoutineDoByStudent: async (root, { idStudent }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('routinesdo').find({student: idStudent }).toArray()
+            } catch (error) {
+            }
+            return routine
+        },
+        getAllDayForRutine: async (root, {rutineDo}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('dayforrutine').find({rutineDo: rutineDo}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
+        getDayForRutineById: async (root, { id }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('dayforrutine').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return routine
+        },
+        getAllSeriesForDay: async (root, {dayForRutine}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('seriesforday').find({dayForRutine: dayForRutine}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
+        getSeriesForDayById: async (root, { id }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('seriesforday').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return routine
+        },
     },
     Mutation: {
         auth: async (root,{email,password}) =>{
@@ -241,7 +326,6 @@ module.exports = {
             return newToken(userToLogin, process.env.SECRET, '24hr')
 
         },
-
         createUser: async (root, { input }) => {
             let db 
             let user
@@ -341,6 +425,66 @@ module.exports = {
             }
             return rutina
         },
+        createRutineDoIt: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('routinesdo').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
+        createDayForRutine: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('dayforrutine').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
+        createSeriesForDay: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('seriesforday').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
 
 
         updateUser: async (root, { _id, input }) => {
@@ -392,8 +536,6 @@ module.exports = {
             return seriesInput
         },
         updateRoutines: async (root, { _id, input }) => {
-            console.log('_id',_id)
-            console.log('input',input)
             let db 
             let routine
             try {
@@ -401,7 +543,44 @@ module.exports = {
                 await db.collection('routines').updateOne({ _id: ObjectID(_id)},{ $set: input })
                 routine = await db.collection('routines').findOne({ _id: ObjectID(_id) })
 
-                console.log('rutinesInput',routine)
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+        updateRoutinesDo: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('routinesdo').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('routinesdo').findOne({ _id: ObjectID(_id) })
+
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+        updateDayForRoutines: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('dayforrutine').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('dayforrutine').findOne({ _id: ObjectID(_id) })
+
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+        updateSeriesForDay: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('seriesforday').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('seriesforday').findOne({ _id: ObjectID(_id) })
 
             } catch (error) {
                 console.error(error)
@@ -459,6 +638,39 @@ module.exports = {
             try {
                 db = await connectDB()
                 rutines = await db.collection('rutines').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteRutinesDo: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('routinesdo').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteDayForRoutines: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('dayforrutine').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteSeriesForDay: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('seriesforday').deleteOne( {_id: ObjectID(_id)})
             } catch (error) {
                 console.error(error)
             }
