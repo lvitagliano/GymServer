@@ -204,7 +204,7 @@ type Query {
 
   getAllRoutinesDo: [RutineDo]
   getRoutineDoById(id: ID): RutineDo
-  getRoutineDoByRutine(rutine: ID): [RutineDo]
+  getRoutineDoByRutine(rutine: ID): RutineDo
   getRoutineDoByTeacher(teacherId: ID): [RutineDo]
   getRoutineDoByStudent(studentId: ID): [RutineDo]
 

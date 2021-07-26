@@ -228,7 +228,7 @@ module.exports = {
     
             try {
                 db = await connectDB()
-                routine = await db.collection('routinesdo').find({rutine: rutine }).toArray()
+                routine = await db.collection('routinesdo').findOne({rutine: rutine })
             } catch (error) {
             }
             return routine
