@@ -222,6 +222,17 @@ module.exports = {
             }
             return routine
         },
+        getRoutineDoByRutine: async (root, { rutineId }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('routinesdo').find({rutine: rutineId }).toArray()
+            } catch (error) {
+            }
+            return routine
+        },
         getRoutineDoByTeacher: async (root, { teacherId }) => {
             let db
             let routine = []
