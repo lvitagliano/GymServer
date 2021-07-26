@@ -222,13 +222,13 @@ module.exports = {
             }
             return routine
         },
-        getRoutineDoByRutine: async (root, { rutineId }) => {
+        getRoutineDoByRutine: async (root, { rutine }) => {
             let db
             let routine = []
     
             try {
                 db = await connectDB()
-                routine = await db.collection('routinesdo').find({rutine: rutineId }).toArray()
+                routine = await db.collection('routinesdo').find({rutine: rutine }).toArray()
             } catch (error) {
             }
             return routine
