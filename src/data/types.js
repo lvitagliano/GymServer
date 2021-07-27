@@ -88,6 +88,9 @@ module.exports = {
             let db
             let rutineDayData
             let ids
+
+            console.log('rutineDay',rutineDay)
+
             try {
                 db = await connectDB()
                 ids = rutineDay ? rutineDay.map(id => ObjectID(id)) : []
