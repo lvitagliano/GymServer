@@ -88,7 +88,6 @@ module.exports = {
             let db
             let rutineDayData
             let ids
-
             try {
                 db = await connectDB()
                 ids = rutineDay ? rutineDay.map(id => ObjectID(id)) : []
@@ -102,6 +101,7 @@ module.exports = {
                 console.error(error)
             }
 
+            console.log('rutineDayData',rutineDayData)
             return rutineDayData
         },
     },

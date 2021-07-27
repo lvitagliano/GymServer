@@ -162,6 +162,7 @@ module.exports = {
             try {
                 db = await connectDB()
                 routines = await db.collection('routines').find().toArray()
+           
             } catch (error) {
             }
             return routines
