@@ -247,6 +247,7 @@ type Mutation {
   createRoutines(input: InputRoutine): Routine
   createRutineDoIt(input: InputRutineDo): RutineDo
   createDayForRutine(input: InputDayForRutine): DayForRutine
+  createDayForRutineDo(input: InputDayForRutineDo): DayForRutineDo
   createSeriesForDay(input: InputSeriesForDay): SeriesForDay
 
   updateUser(_id: ID, input: InputUser): User
@@ -256,6 +257,7 @@ type Mutation {
   updateRoutines(_id: ID, input: InputRoutine): Routine
   updateRoutinesDo(_id: ID, input: InputRutineDo): RutineDo
   updateDayForRoutines(_id: ID, input: InputDayForRutine): DayForRutine
+  updateDayForRoutinesDo(_id: ID, input: InputDayForRutineDo): DayForRutineDo
   updateSeriesForDay(_id: ID, input: InputSeriesForDay): SeriesForDay
 
   deleteUser(_id: ID): String
@@ -265,6 +267,7 @@ type Mutation {
   deleteRutines(_id: ID): String
   deleteRutinesDo(_id: ID): String
   deleteDayForRoutines(_id: ID): String
+  deleteDayForRoutinesDo(_id: ID): String
   deleteSeriesForDay(_id: ID): String
 
 }

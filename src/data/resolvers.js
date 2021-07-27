@@ -498,6 +498,26 @@ module.exports = {
             }
             return rutina
         },
+        createDayForRutineDo: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('dayforrutinedo').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
         createSeriesForDay: async (root, { input }) => {
             let db 
             let routine
@@ -607,6 +627,19 @@ module.exports = {
             }
             return routine
         },
+        updateDayForRoutinesDo: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('dayforrutinedo').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('dayforrutinedo').findOne({ _id: ObjectID(_id) })
+
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
         updateSeriesForDay: async (root, { _id, input }) => {
             let db 
             let routine
@@ -693,6 +726,17 @@ module.exports = {
             try {
                 db = await connectDB()
                 rutines = await db.collection('dayforrutine').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteDayForRoutinesDo: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('dayforrutinedo').deleteOne( {_id: ObjectID(_id)})
             } catch (error) {
                 console.error(error)
             }
