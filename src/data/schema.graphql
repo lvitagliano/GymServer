@@ -67,7 +67,7 @@ type Routine {
   student: [User]
   teacher: User
   series: Int
-  serie: [Serie]
+  rutineDay: [DayForRutine]
   start: String
   finish: String
   period: String
@@ -79,13 +79,23 @@ type Routine {
 type SeriesForDay {
   _id: ID
   serie: Serie
-  dayForRutine: DayForRutine
+  dayForRutine: DayForRutineDo
   doIt: Int
   createdOn: Date
   modifiedOn: Date
 }
 
 type DayForRutine {
+  _id: ID
+  numberDay: Int
+  rutine: Rutine
+  serieforday: [Serie]
+  timer: Int
+  createdOn: Date
+  modifiedOn: Date
+}
+
+type DayForRutineDo {
   _id: ID
   numberDay: Int
   rutineDo: RutineDo
@@ -99,7 +109,7 @@ type RutineDo {
   rutine: Routine
   teacher: User
   student: User
-  rutineDay: [DayForRutine]
+  rutineDay: [DayForRutineDo]
   createdOn: Date
   modifiedOn: Date
 }
@@ -148,7 +158,7 @@ input InputRoutine {
   student: [String]
   teacher: String
   series: Int
-  serie: [String]
+  rutineDay: [String]
   start: String
   finish: String
   period: String
@@ -162,6 +172,15 @@ input InputSeriesForDay {
 }
 
 input InputDayForRutine {
+  numberDay: Int
+  serieforday: [String]
+  rutine: String
+  timer: Int
+  createdOn: Date
+  modifiedOn: Date
+}
+
+input InputDayForRutineDo {
   numberDay: Int
   serieforday: [String]
   rutineDo: String
@@ -208,8 +227,12 @@ type Query {
   getRoutineDoByTeacher(teacherId: ID): [RutineDo]
   getRoutineDoByStudent(studentId: ID): [RutineDo]
 
-  getAllDayForRutine(rutineDo: ID): [DayForRutine]
+  getAllDayForRutine(rutine: ID): [DayForRutine]
   getDayForRutineById(id: ID): DayForRutine
+
+  getAllDayForRutineDo(rutineDo: ID): [DayForRutineDo]
+  getDayForRutineDoById(id: ID): DayForRutineDo
+
   getAllSeriesForDay(dayForRutine: ID): [SeriesForDay]
   getSeriesForDayById(id: ID): SeriesForDay
 }

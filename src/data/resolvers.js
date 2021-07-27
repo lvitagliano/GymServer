@@ -255,13 +255,13 @@ module.exports = {
             }
             return routine
         },
-        getAllDayForRutine: async (root, {rutineDo}) => {
+        getAllDayForRutine: async (root, {rutine}) => {
             let db
             let routines = []
     
             try {
                 db = await connectDB()
-                routines = await db.collection('dayforrutine').find({rutineDo: rutineDo}).toArray()
+                routines = await db.collection('dayforrutine').find({rutine: rutine}).toArray()
             } catch (error) {
             }
             return routines
@@ -273,6 +273,28 @@ module.exports = {
             try {
                 db = await connectDB()
                 routine = await db.collection('dayforrutine').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return routine
+        },
+        getAllDayForRutineDo: async (root, {rutineDo}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('dayforrutinedo').find({rutineDo: rutineDo}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
+        getDayForRutineDoById: async (root, { id }) => {
+            let db
+            let routine = []
+    
+            try {
+                db = await connectDB()
+                routine = await db.collection('dayforrutinedo').findOne({ _id: ObjectID(id) })
             } catch (error) {
             }
             return routine

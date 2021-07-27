@@ -84,16 +84,16 @@ module.exports = {
 
             return teacherData
         },
-        serie: async ({ serie }) => {
+        rutineDay: async ({ rutineDay }) => {
             let db
-            let serieData
+            let rutineDayData
             let ids
 
             try {
                 db = await connectDB()
-                ids = serie ? serie.map(id => ObjectID(id)) : []
-                serieData = ids.length > 0 
-                ? await  db.collection('series').find(
+                ids = rutineDay ? rutineDay.map(id => ObjectID(id)) : []
+                rutineDayData = ids.length > 0 
+                ? await  db.collection('dayforrutine').find(
                     { _id: { $in: ids } }
                 ).toArray()
                 : []
@@ -102,7 +102,7 @@ module.exports = {
                 console.error(error)
             }
 
-            return serieData
+            return rutineDayData
         },
     },
 
@@ -149,6 +149,44 @@ module.exports = {
                 db = await connectDB()
                 ids = serieforday ? serieforday.map(id => ObjectID(id)) : []
                 serieData = ids.length > 0 
+                ? await  db.collection('series').find(
+                    { _id: { $in: ids } }
+                ).toArray()
+                : []
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return serieData
+        },
+        rutine: async ({ rutine }) => {
+            let db
+            let rutineDoData
+            let ids
+
+            try {
+                db = await connectDB()
+                rutineDoData = await db.collection('routines').findOne({ _id: ObjectID(rutine) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return rutineDoData
+        },
+    },
+
+    DayForRutineDo: {
+        serieforday: async ({ serieforday }) => {
+            let db
+            let serieData
+            let ids
+
+            try {
+                db = await connectDB()
+                ids = serieforday ? serieforday.map(id => ObjectID(id)) : []
+                serieData = ids.length > 0 
                 ? await  db.collection('seriesforday').find(
                     { _id: { $in: ids } }
                 ).toArray()
@@ -176,7 +214,6 @@ module.exports = {
             return rutineDoData
         },
     },
-
     RutineDo: {
         rutineDay: async ({ rutineDay }) => {
             let db
