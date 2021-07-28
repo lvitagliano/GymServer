@@ -201,6 +201,21 @@ module.exports = {
 
             return serieData
         },
+        rutine: async ({ rutine }) => {
+            let db
+            let rutineDoData
+            let ids
+
+            try {
+                db = await connectDB()
+                rutineDoData = await db.collection('routines').findOne({ _id: ObjectID(rutine) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return rutineDoData
+        },
         rutineDo: async ({ rutineDo }) => {
             let db
             let rutineDoData

@@ -98,6 +98,7 @@ type DayForRutine {
 type DayForRutineDo {
   _id: ID
   numberDay: Int
+  rutine: Routine
   rutineDo: RutineDo
   serieforday: [SeriesForDay]
   createdOn: Date
@@ -183,6 +184,7 @@ input InputDayForRutine {
 input InputDayForRutineDo {
   numberDay: Int
   serieforday: [String]
+  rutine: String
   rutineDo: String
   createdOn: Date
   modifiedOn: Date
