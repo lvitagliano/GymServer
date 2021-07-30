@@ -267,6 +267,17 @@ module.exports = {
             }
             return routines
         },
+        getAllDayForRutineStudent: async (root, {studentId}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('dayforrutine').find({student: studentId}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
         getDayForRutineById: async (root, { id }) => {
             let db
             let routine = []
@@ -285,6 +296,17 @@ module.exports = {
             try {
                 db = await connectDB()
                 routines = await db.collection('dayforrutinedo').find({rutineDo: rutineDo}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
+        getAllDayForRutineDoStudent: async (root, {studentId}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('dayforrutinedo').find({student: studentId}).toArray()
             } catch (error) {
             }
             return routines
@@ -311,6 +333,19 @@ module.exports = {
             }
             return routines
         },
+        getAllSeriesForStudent: async (root, {studentId}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('seriesforday').find({student: studentId}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
+
+
         getSeriesForDayById: async (root, { id }) => {
             let db
             let routine = []

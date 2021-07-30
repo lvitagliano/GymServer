@@ -236,12 +236,15 @@ type Query {
   getRoutineDoByStudent(studentId: ID): [RutineDo]
 
   getAllDayForRutine(rutine: ID): [DayForRutine]
+  getAllDayForRutineStudent(studentId: ID): [DayForRutine]
   getDayForRutineById(id: ID): DayForRutine
 
   getAllDayForRutineDo(rutineDo: ID): [DayForRutineDo]
+  getAllDayForRutineDoStudent(studentId: ID): [DayForRutineDo]
   getDayForRutineDoById(id: ID): DayForRutineDo
 
   getAllSeriesForDay(dayForRutine: ID): [SeriesForDay]
+  getAllSeriesForStudent(studentId: ID): [SeriesForDay]
   getSeriesForDayById(id: ID): SeriesForDay
 }
 
