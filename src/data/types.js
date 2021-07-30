@@ -110,6 +110,21 @@ module.exports = {
     },
 
     SeriesForDay: {
+        student: async ({ student }) => {
+            let db
+            let studentData
+            let ids
+
+            try {
+                db = await connectDB()
+                studentData = await db.collection('users').findOne({ _id: ObjectID(student) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return studentData
+        },
         serie: async ({ serie }) => {
             let db
             let serieData
@@ -143,6 +158,21 @@ module.exports = {
     },
 
     DayForRutine: {
+        student: async ({ student }) => {
+            let db
+            let studentData
+            let ids
+
+            try {
+                db = await connectDB()
+                studentData = await db.collection('users').findOne({ _id: ObjectID(student) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return studentData
+        },
         serieforday: async ({ serieforday }) => {
             let db
             let serieData
@@ -181,6 +211,21 @@ module.exports = {
     },
 
     DayForRutineDo: {
+        student: async ({ student }) => {
+            let db
+            let studentData
+            let ids
+
+            try {
+                db = await connectDB()
+                studentData = await db.collection('users').findOne({ _id: ObjectID(student) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return studentData
+        },
         serieforday: async ({ serieforday }) => {
             let db
             let serieData
