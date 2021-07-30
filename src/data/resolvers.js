@@ -522,7 +522,6 @@ module.exports = {
                 createdOn: new Date(),
                 modifiedOn: new Date()
             })
-            console.log('input',input)
             try {
                 db = await connectDB()
                 routine = await db.collection('dayforrutine').insertOne(newRoutines)
