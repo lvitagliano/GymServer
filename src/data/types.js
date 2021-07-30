@@ -132,7 +132,7 @@ module.exports = {
 
             try {
                 db = await connectDB()
-                dayForRutineData = await db.collection('dayforrutine').findOne({ _id: ObjectID(dayForRutine) })
+                dayForRutineData = await db.collection('dayforrutinedo').findOne({ _id: ObjectID(dayForRutine) })
 
             } catch (error) {
                 console.error(error)
