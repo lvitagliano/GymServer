@@ -300,6 +300,17 @@ module.exports = {
             }
             return routines
         },
+        getAllDayForRutineRutineDo: async (root, {rutine}) => {
+            let db
+            let routines = []
+    
+            try {
+                db = await connectDB()
+                routines = await db.collection('dayforrutinedo').find({rutine: rutine}).toArray()
+            } catch (error) {
+            }
+            return routines
+        },
         getAllDayForRutineDoStudent: async (root, {student}) => {
             let db
             let routines = []

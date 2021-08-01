@@ -240,6 +240,7 @@ type Query {
   getDayForRutineById(id: ID): DayForRutine
 
   getAllDayForRutineDo(rutineDo: ID): [DayForRutineDo]
+  getAllDayForRutineRutineDo(rutine: ID): [DayForRutineDo]
   getAllDayForRutineDoStudent(student: ID): [DayForRutineDo]
   getDayForRutineDoById(id: ID): DayForRutineDo
 
