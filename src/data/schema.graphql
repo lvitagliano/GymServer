@@ -104,6 +104,8 @@ type DayForRutineDo {
   rutineDo: RutineDo
   student: User
   serieforday: [SeriesForDay]
+  cantSeries: Int
+  canSeriesDo: Int
   createdOn: Date
   modifiedOn: Date
 }
@@ -192,6 +194,8 @@ input InputDayForRutineDo {
   rutine: String
   student: String
   rutineDo: String
+  cantSeries: Int
+  canSeriesDo: Int
   createdOn: Date
   modifiedOn: Date
 }

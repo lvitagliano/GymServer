@@ -376,7 +376,7 @@ module.exports = {
                 
             try {
                 db = await connectDB()
-                users = await db.collection('users').findOne({ email: email })
+                users = await db.collection('users').findOne({ email: email.toLowerCase() })
             } catch (error) {
             }
 
@@ -413,6 +413,7 @@ module.exports = {
 
             const newUser = ({
                 ...input,
+                email: input.email.toLowerCase(),
                 createdOn: new Date(),
                 modifiedOn: new Date()
             })
