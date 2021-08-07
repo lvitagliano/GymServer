@@ -410,13 +410,15 @@ module.exports = {
             const {password} = input
             const salt = await bcrypt.genSalt(10)
             input.password= await bcrypt.hash(password,salt)
-
+            console.log('newUser',input.password)
             const newUser = ({
                 ...input,
                 email: input.email.toLowerCase(),
                 createdOn: new Date(),
                 modifiedOn: new Date()
             })
+            console.log('newUser',input.password)
+            
 
             try {
                 db = await connectDB()
@@ -748,7 +750,7 @@ module.exports = {
             let rutines
             try {
                 db = await connectDB()
-                rutines = await db.collection('rutines').deleteOne( {_id: ObjectID(_id)})
+                rutines = await db.collection('routines').deleteOne( {_id: ObjectID(_id)})
             } catch (error) {
                 console.error(error)
             }
