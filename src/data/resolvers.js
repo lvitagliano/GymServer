@@ -366,6 +366,108 @@ module.exports = {
             }
             return routine
         },
+        
+        getAllContactForm: async () => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('contactform').find().toArray()
+            } catch (error) {
+            }
+            return users
+        },
+        getContactFormByUser: async (root, { user }) => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('contactform').find({user: user}).toArray()
+            } catch (error) {
+            }
+            return users
+        },
+        getContactFormById: async (root, { id }) => {
+            let db
+            let user = []
+    
+            try {
+                db = await connectDB()
+                user = await db.collection('contactform').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return user
+        },
+
+        getAllMedicForm: async () => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('medicform').find().toArray()
+            } catch (error) {
+            }
+            return users
+        },
+        getMedicFormByUser: async (root, { user }) => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('medicform').find({user: user}).toArray()
+            } catch (error) {
+            }
+            return users
+        },
+        getMedicFormById: async (root, { id }) => {
+            let db
+            let user = []
+    
+            try {
+                db = await connectDB()
+                user = await db.collection('medicform').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return user
+        },
+
+        getAllCovidForm: async () => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('covidform').find().toArray()
+            } catch (error) {
+            }
+            return users
+        },
+        getCovidFormByUser: async (root, { user }) => {
+            let db
+            let users = []
+    
+            try {
+                db = await connectDB()
+                users = await db.collection('covidform').find({user: user}).toArray()
+            } catch (error) {
+            }
+            return users
+        },
+        getCovidFormById: async (root, { id }) => {
+            let db
+            let user = []
+    
+            try {
+                db = await connectDB()
+                user = await db.collection('covidform').findOne({ _id: ObjectID(id) })
+            } catch (error) {
+            }
+            return user
+        },
     },
     Mutation: {
         auth: async (root,{email,password}) =>{
@@ -585,6 +687,66 @@ module.exports = {
             }
             return rutina
         },
+        createContactForm: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('contactform').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
+        createMedicForm: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('medicform').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
+        createCovidForm: async (root, { input }) => {
+            let db 
+            let routine
+            let rutina = input
+
+            const newRoutines = ({
+                ...input,
+                createdOn: new Date(),
+                modifiedOn: new Date()
+            })
+
+            try {
+                db = await connectDB()
+                routine = await db.collection('covidform').insertOne(newRoutines)
+                rutina._id = routine.insertedId
+            } catch (error) {
+                console.error(error)
+            }
+            return rutina
+        },
 
 
         updateUser: async (root, { _id, input }) => {
@@ -700,6 +862,46 @@ module.exports = {
             }
             return routine
         },
+        updateContactForm: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('contactform').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('contactform').findOne({ _id: ObjectID(_id) })
+
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+        updateMedicForm: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('medicform').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('medicform').findOne({ _id: ObjectID(_id) })
+
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+        updateCovidForm: async (root, { _id, input }) => {
+            let db 
+            let routine
+            try {
+                db = await connectDB()
+                await db.collection('covidform').updateOne({ _id: ObjectID(_id)},{ $set: input })
+                routine = await db.collection('covidform').findOne({ _id: ObjectID(_id) })
+
+            } catch (error) {
+                console.error(error)
+            }
+            return routine
+        },
+
 
         deleteUser: async (root, { _id }) => {
             let db 
@@ -795,6 +997,39 @@ module.exports = {
             try {
                 db = await connectDB()
                 rutines = await db.collection('seriesforday').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteContactForm: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('contactform').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteMedicForm: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('medicform').deleteOne( {_id: ObjectID(_id)})
+            } catch (error) {
+                console.error(error)
+            }
+            return 'Eliminado correctamente'
+        },
+        deleteCovidForm: async (root, { _id }) => {
+            let db 
+            let rutines
+            try {
+                db = await connectDB()
+                rutines = await db.collection('covidform').deleteOne( {_id: ObjectID(_id)})
             } catch (error) {
                 console.error(error)
             }

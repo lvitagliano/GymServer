@@ -6,6 +6,54 @@ const { ObjectID } = require('mongodb');
 module.exports = {
     Date: GraphQLDateTime,
 
+    User: {
+        medicForm: async ({ medicForm }) => {
+            let db
+            let medicFormData
+            let ids
+
+            try {
+                db = await connectDB()
+                medicFormData = await db.collection('medicform').findOne({ _id: ObjectID(medicForm) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return medicFormData
+        },
+        contactForm: async ({ contactForm }) => {
+            let db
+            let contactFormData
+            let ids
+
+            try {
+                db = await connectDB()
+                contactFormData = await db.collection('contactform').findOne({ _id: ObjectID(contactForm) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return contactFormData
+        },
+        covidForm: async ({ covidForm }) => {
+            let db
+            let covidFormData
+            let ids
+
+            try {
+                db = await connectDB()
+                covidFormData = await db.collection('covidform').findOne({ _id: ObjectID(covidForm) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return covidFormData
+        },
+    },
+
     Exercise: {
         muscle: async ({ muscle }) => {
             let db
@@ -88,9 +136,6 @@ module.exports = {
             let db
             let rutineDayData
             let ids
-
-            console.log('rutineDay',rutineDay)
-
             try {
                 db = await connectDB()
                 ids = rutineDay ? rutineDay.map(id => ObjectID(id)) : []
@@ -104,7 +149,6 @@ module.exports = {
                 console.error(error)
             }
 
-            console.log('rutineDayData',rutineDayData)
             return rutineDayData
         },
     },

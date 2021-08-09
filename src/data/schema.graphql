@@ -12,7 +12,6 @@ enum Gender {
   Femenino
 }
 
-
 # LOS TYPES
 type User {
   _id: ID
@@ -22,6 +21,11 @@ type User {
   phone: String
   nac: String
   gender: Gender
+  address: String
+  dni: Int
+  medicForm: MedicForm
+  contactForm: ContactForm
+  covidForm: CovidForm
   profile: Profile
   weightStart: Float
   weightActual: Float
@@ -50,7 +54,7 @@ type Exercise {
 
 type Serie {
   _id: ID
-  weight: Float 
+  weight: Float
   exercise: Exercise
   repeats: Int
   pause: Int
@@ -120,6 +124,44 @@ type RutineDo {
   modifiedOn: Date
 }
 
+type MedicForm {
+  _id: ID
+  user: User
+  respiratoria: Int
+  cardiaca: Int
+  presion: String
+  renal: Int
+  convulsion: Int
+  neuro: Int
+  diabetes: Int
+  column: Int
+  intQuirur: Int
+  asma: Int
+  alergia: Int
+  lesArticular: Int
+  lesMuscular: Int
+  medicamentos: Int
+  descripcionIfSi: String
+}
+
+type ContactForm {
+  _id: ID
+  user: User
+  completeName: String
+  phone: String
+  completeNameTwo: String
+  phoneTwo: String
+}
+
+type CovidForm {
+  _id: ID
+  user: User
+  dateInscription: String
+  sintomas: Int
+  inmunodepre: Int
+  sospecha: Int
+}
+
 # LOS INPUTS
 input InputUser {
   email: String
@@ -128,11 +170,15 @@ input InputUser {
   phone: String
   nac: String
   gender: String
+  address: String
+  dni: Int
+  medicForm: String
+  contactForm: String
+  covidForm: String
   profile: String
   weightStart: Float
   weightActual: Float
   password: String
-  
 }
 
 input InputMuscle {
@@ -148,7 +194,7 @@ input InputExercise {
 }
 
 input InputSerie {
-  weight: Float 
+  weight: Float
   exercise: String
   repeats: Int
   pause: Int
@@ -207,11 +253,47 @@ input InputRutineDo {
   rutineDay: [String]
 }
 
+input InputMedicForm {
+  _id: ID
+  user: InputUser
+  respiratoria: Int
+  cardiaca: Int
+  presion: String
+  renal: Int
+  convulsion: Int
+  neuro: Int
+  diabetes: Int
+  column: Int
+  intQuirur: Int
+  asma: Int
+  alergia: Int
+  lesArticular: Int
+  lesMuscular: Int
+  medicamentos: Int
+  descripcionIfSi: String
+}
 
+input InputContactForm {
+  _id: ID
+  user: InputUser
+  completeName: String
+  phone: String
+  completeNameTwo: String
+  phoneTwo: String
+}
+
+input InputCovidForm {
+  _id: ID
+  user: InputUser
+  dateInscription: String
+  sintomas: Int
+  inmunodepre: Int
+  sospecha: Int
+}
 
 # LAS QUERYS
 type Query {
-  getCurrentUser(token: String):User
+  getCurrentUser(token: String): User
   login(email: String): User
   getAllUsers: [User]
   getUserById(id: ID): User
@@ -251,6 +333,19 @@ type Query {
   getAllSeriesForDay(dayForRutine: ID): [SeriesForDay]
   getAllSeriesForStudent(student: ID): [SeriesForDay]
   getSeriesForDayById(id: ID): SeriesForDay
+
+
+  getAllContactForm: [ContactForm]
+  getContactFormByUser(user: ID): [ContactForm]
+  getContactFormById(id: ID): ContactForm
+
+  getAllMedicForm: [MedicForm]
+  getMedicFormByUser(user: ID): [MedicForm]
+  getMedicFormById(id: ID): MedicForm
+
+  getAllCovidForm: [CovidForm]
+  getCovidFormByUser(user: ID): [CovidForm]
+  getCovidFormById(id: ID): CovidForm
 }
 
 # LAS MUTATIONS
@@ -265,6 +360,9 @@ type Mutation {
   createDayForRutine(input: InputDayForRutine): DayForRutine
   createDayForRutineDo(input: InputDayForRutineDo): DayForRutineDo
   createSeriesForDay(input: InputSeriesForDay): SeriesForDay
+  createContactForm(input: InputContactForm): ContactForm
+  createMedicForm(input: InputMedicForm): MedicForm
+  createCovidForm(input: InputCovidForm): CovidForm
 
   updateUser(_id: ID, input: InputUser): User
   updateMuscle(_id: ID, input: InputMuscle): Muscle
@@ -275,6 +373,9 @@ type Mutation {
   updateDayForRoutines(_id: ID, input: InputDayForRutine): DayForRutine
   updateDayForRoutinesDo(_id: ID, input: InputDayForRutineDo): DayForRutineDo
   updateSeriesForDay(_id: ID, input: InputSeriesForDay): SeriesForDay
+  updateContactForm(_id: ID, input: InputContactForm): ContactForm
+  updateMedicForm(_id: ID, input: InputMedicForm): MedicForm
+  updateCovidForm(_id: ID, input: InputCovidForm): CovidForm
 
   deleteUser(_id: ID): String
   deleteMuscle(_id: ID): String
@@ -285,5 +386,7 @@ type Mutation {
   deleteDayForRoutines(_id: ID): String
   deleteDayForRoutinesDo(_id: ID): String
   deleteSeriesForDay(_id: ID): String
-
+  deleteContactForm(_id: ID): String
+  deleteMedicForm(_id: ID): String
+  deleteCovidForm(_id: ID): String
 }
