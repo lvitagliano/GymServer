@@ -391,55 +391,71 @@ module.exports = {
 
     MedicForm: {
         user: async ({ user }) => {
+           
             let db
-            let medicFormData
+            let studentData
             let ids
 
             try {
                 db = await connectDB()
-                medicFormData = await db.collection('users').findOne({ _id: ObjectID(user) })
-
+                ids = user ? user.map(id => ObjectID(id)) : []
+                
+                studentData = ids.length > 0 
+                ? await  db.collection('users').find(
+                    { _id: { $in: ids } }
+                ).toArray()
+                : []
             } catch (error) {
                 console.error(error)
             }
 
-            return medicFormData
-        }
+            return studentData
+        },
     },
-
     ContactForm: {
         user: async ({ user }) => {
+           
             let db
-            let medicFormData
+            let studentData
             let ids
 
             try {
                 db = await connectDB()
-                medicFormData = await db.collection('users').findOne({ _id: ObjectID(user) })
-
+                ids = user ? user.map(id => ObjectID(id)) : []
+                
+                studentData = ids.length > 0 
+                ? await  db.collection('users').find(
+                    { _id: { $in: ids } }
+                ).toArray()
+                : []
             } catch (error) {
                 console.error(error)
             }
 
-            return medicFormData
+            return studentData
         }
     },
-
     CovidForm: {
         user: async ({ user }) => {
+           
             let db
-            let medicFormData
+            let studentData
             let ids
 
             try {
                 db = await connectDB()
-                medicFormData = await db.collection('users').findOne({ _id: ObjectID(user) })
-
+                ids = user ? user.map(id => ObjectID(id)) : []
+                
+                studentData = ids.length > 0 
+                ? await  db.collection('users').find(
+                    { _id: { $in: ids } }
+                ).toArray()
+                : []
             } catch (error) {
                 console.error(error)
             }
 
-            return medicFormData
-        }
+            return studentData
+        },
     }
 }
