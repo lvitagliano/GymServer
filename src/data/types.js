@@ -388,4 +388,58 @@ module.exports = {
             return userData
         },
     },
+
+    MedicForm: {
+        user: async ({ user }) => {
+            let db
+            let medicFormData
+            let ids
+
+            try {
+                db = await connectDB()
+                medicFormData = await db.collection('users').findOne({ _id: ObjectID(user) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return medicFormData
+        }
+    },
+
+    ContactForm: {
+        user: async ({ user }) => {
+            let db
+            let medicFormData
+            let ids
+
+            try {
+                db = await connectDB()
+                medicFormData = await db.collection('users').findOne({ _id: ObjectID(user) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return medicFormData
+        }
+    },
+
+    CovidForm: {
+        user: async ({ user }) => {
+            let db
+            let medicFormData
+            let ids
+
+            try {
+                db = await connectDB()
+                medicFormData = await db.collection('users').findOne({ _id: ObjectID(user) })
+
+            } catch (error) {
+                console.error(error)
+            }
+
+            return medicFormData
+        }
+    }
 }
