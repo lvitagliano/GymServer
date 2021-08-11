@@ -126,7 +126,7 @@ type RutineDo {
 
 type MedicForm {
   _id: ID
-  user: User
+  user: String
   respiratoria: Int
   cardiaca: Int
   presion: String
@@ -146,7 +146,7 @@ type MedicForm {
 
 type ContactForm {
   _id: ID
-  user: User
+  user: String
   completeName: String
   phone: String
   completeNameTwo: String
@@ -155,7 +155,7 @@ type ContactForm {
 
 type CovidForm {
   _id: ID
-  user: User
+  user: String
   dateInscription: String
   sintomas: Int
   inmunodepre: Int
